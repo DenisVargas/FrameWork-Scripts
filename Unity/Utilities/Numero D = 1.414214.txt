@@ -1,0 +1,10 @@
+if (lawea1 != null && lawea2 != null)
+        {
+            float result = Vector3.Distance(lawea1.transform.position, lawea2.transform.position);
+            MonoBehaviour.print(result);
+            float result2 = result * 0.1f;
+            float result3 = 10 * 1.414214f;
+            result3 += (10 * 0.1f);
+            MonoBehaviour.print("Porcentaje:" + result2);
+            MonoBehaviour.print("Total: " + result3);
+        }

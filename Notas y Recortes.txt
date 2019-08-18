@@ -1,0 +1,224 @@
+---------------------------------------------------------------------
+			In scene raycast (?)
+---------------------------------------------------------------------
+Vector2 guiPosition = Event.current.mousePosition;
+Ray ray = HandleUtility.GUIPointToWorldRay(guiPosition);
+Physics.Raycast(ray);
+
+---------------------------------------------------------------------
+	Instanciar objetos usando raycast en scene:
+---------------------------------------------------------------------
+[CustomEditor(typeof(ObjectGroup))]
+public class ObjectGroupInspector : Editor
+{
+void OnSceneGUI()
+    {
+        // If we are in edit mode and the user clicks (right click, middle click or alt+left click)
+        if (__editMode)
+        {
+            if (Event.current.type == EventType.MouseUp)
+            {
+                // Shoot a ray from the mouse position into the world
+                Ray worldRay = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+                RaycastHit hitInfo;
+                // Shoot this ray. check in a distance of 10000.
+                if (Physics.Raycast(worldRay, out hitInfo, 10000))
+                {
+                    // Load the current prefab
+                    string path = "Assets/Prefabs/" + __typeStrings[__currentType] + ".prefab";
+                    GameObject anchor_point = Resources.LoadAssetAtPath(path, typeof(GameObject)) as GameObject;
+                    // Instance this prefab
+                    GameObject prefab_instance = PrefabUtility.InstantiatePrefab(anchor_point) as GameObject;
+                    // Place the prefab at correct position (position of the hit).
+                    prefab_instance.transform.position = hitInfo.point;
+                    prefab_instance.transform.parent = __objectGroup.transform;
+                    // Mark the instance as dirty because we like dirty
+                    EditorUtility.SetDirty(prefab_instance);
+                }
+            }
+            // Mark the event as used
+            Event.current.Use();
+        } // End if __editMode
+    } // End OnSceneGUI
+}
+
+---------------------------------------------------------------------
+			Dijkstra o A*
+---------------------------------------------------------------------
+
+Codigo Belu:
+
+                //var NDist = (Vector3.Distance(CurrentNode.transform.position, v.transform.position)) + CurrentNode.G;
+                ////Si la lista abierta TIENE A V
+                //if (_openSet.Contains(v))
+                //{
+                //    if (v.G <= NDist)
+                //    {
+                //        continue;
+                //    }
+                //}
+                ////Si la lista cerrada tiene a V
+                //else if (_closedSet.Contains(v))
+                //{
+                //    if (v.G <= NDist)
+                //        continue;
+                //    _openSet.Add(v);
+                //    _closedSet.Remove(v);
+                //}
+                ////Si la lista cerrada no tiene a V
+                //else
+                //{
+                //    _openSet.Add(v);
+                //    v.SetH(end); //tenian esto, nose para que es
+                //}
+                //v.G = NDist;
+                //v.padre = CurrentNode;
+                //v.F = v.G + v.H; // me exploto la cabeza
+
+---------------------------------------------------------------------
+			Recursive Search Parents
+---------------------------------------------------------------------
+
+private static List<Slot> SearchTheWay(List<Slot> usedList,Slot start,Slot end)
+    {
+        //copio las weas.
+        List<Slot> A = new List<Slot>(usedList);
+        Slot beggining = start;
+        Slot ending = end;
+
+        //Evaluo el elemento
+        Slot evaluated = A[A.Count - 1];
+
+        //Caso Base
+        if (evaluated == start)
+        {
+            return A;
+        }
+        else
+        {
+            A.Add(evaluated.previous);
+            return SearchTheWay(A,start,end);
+        }
+    }
+---------------------------------------------------------------------
+	Debugear una colección con un mensaje inicial
+---------------------------------------------------------------------
+
+
+public static string ListedMultipleObjects<T> (List<T> col, string initialMessage)
+    {
+        string Message = initialMessage;
+
+        for (int i = 0; i < col.Count; i++)
+        {
+            if (i == col.Count - 1)
+            {
+                Message += col[i].ToString();
+                Message += ".";
+            }
+            else
+            {
+                Message += col[i].ToString();
+                Message += ", ";
+            }
+        }
+        return Message;
+    }
+
+
+-------------------------------------------------------------------------------------------
+
+if (Allies.Count > 1 && !isLeader)
+        {
+            bool leader = false;
+            foreach (var item in Allies)
+            {
+                bool lawea = item.isLeader;
+                if (lawea)
+                {
+                    leader = true;
+                    return;
+                }
+            }
+            
+
+            if (!leader)
+            {
+                NPcFloq newLeader;
+                if (Allies.Count > 1)
+                {
+                    int numRandom = UnityEngine.Random.Range(1, Allies.Count);
+                    newLeader = Allies[numRandom - 1];
+                    newLeader.isLeader = true;
+                }
+            }
+        }
+
+
+-------------------------------------------------------------------------------------------
+
+private void alertAlliesAndGroup()
+    {
+        if (Allies.Count == 0)
+        {
+            Collider[] objetos = Physics.OverlapSphere(transform.position, radAlert, alliesLayerMask);
+
+            foreach (var item in objetos)
+                if (item != gameObject.GetComponent<Collider>())
+                {
+                    Allies.Add(item.gameObject.GetComponent<NPcFloq>());
+                }
+            print("P1:" + Allies.Count);
+            //Si soy lider...
+            if (isLeader)
+            {
+                bool aLeaderExist = false;
+                foreach (var item in Allies)
+                {
+                    bool lawea = item.isLeader;
+                    if (lawea)
+                    {
+                        aLeaderExist = true;
+                        return;
+                    }
+                }
+                print("P2: Existe otro lider?:" + aLeaderExist);
+                //y si no existe, elegimos uno al azar.
+                if (aLeaderExist == false)
+                {
+                    NPcFloq newLeader;
+                    int numRandom = UnityEngine.Random.Range(1, Allies.Count);
+                    print("P3:" + numRandom);
+                    newLeader = Allies[numRandom - 1];
+                    print("P4: el nuevo lider seria: " + newLeader.gameObject.name);
+                }
+            }
+
+
+            if (Allies.Count >= 1 && !isLeader) //Si descubri un enemigo y no soy un lider...
+            {
+                //Chequeo si existe un lider...
+                bool aLeaderExist = false;
+                foreach (var item in Allies)
+                {
+                    bool lawea = item.isLeader;
+                    if (lawea)
+                    {
+                        aLeaderExist = true;
+                        return;
+                    }
+                }
+                print("P2:" + aLeaderExist);
+                //y si no existe, elegimos uno al azar.
+                if (aLeaderExist == false)
+                {
+                    NPcFloq newLeader;
+                    int numRandom = UnityEngine.Random.Range(1, Allies.Count);
+                    print("P3:" + numRandom);
+                    newLeader = Allies[numRandom - 1];
+                    print("P4: new leader is" + newLeader.gameObject.name);
+                    newLeader.isLeader = true;
+                }
+            }
+        }
+    }
