@@ -31,7 +31,7 @@ namespace Utility.Timers
 				_mono.StartCoroutine(CountDown());
 			}
 		}
-		public override void StartCount( float From)
+		public override void StartCount(float From)
 		{
 			if (isReady)
 			{
@@ -58,34 +58,30 @@ namespace Utility.Timers
 
 		IEnumerator CountDown()
 		{
-			while( Time >= 0)
+			while( Time > 0)
 			{
 				Time -= Presition;
 				yield return new WaitForSeconds(Presition);
 			}
-			if (Time <= 0)
-			{
-				isReady = true;
-				Time = CoolDown;
-				OnTimesUp();
-				_mono.StopCoroutine(CountDown());
-			}
+
+			isReady = true;
+			Time = CoolDown;
+			OnTimesUp();
+			_mono.StopCoroutine(CountDown());
 		}
-		IEnumerator CountDown(float From)
+		IEnumerator CountDown(float From = Time)
 		{
-			while ( Time >= 0)
+			Time = From;
+			while ( Time > 0)
 			{
-				Time = From;
 				Time -= Presition;
 				yield return new WaitForSeconds(Presition);
 			}
-			if (Time <= 0)
-			{
-				isReady = true;
-				Time = CoolDown;
-				OnTimesUp();
-				_mono.StopCoroutine(CountDown(From));
-			}
+			
+			isReady = true;
+			Time = CoolDown;
+			OnTimesUp();
+			_mono.StopCoroutine(CountDown(From));
 		}
 	}
 }
