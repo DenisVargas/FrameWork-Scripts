@@ -10,14 +10,14 @@ namespace IA.LineOfSight
         /// </summary>
         /// <param name="range">Rango máximo de la visión</param>
         /// <param name="angle">Ángulo máximo de la visión</param>
-        public static LineOfSight CreateSightEntity(this Transform _origin, float range, float angle)
+        public static LineOfSight CreateSightEntity(this Monobehaviour _origin, float range, float angle)
         {
-            return new LineOfSight(_origin, range, angle);
+            return new CompositeLineOfSight(_origin.transform, range, angle);
         }
     }
 
     [Serializable]
-    public class LineOfSight
+    public class CompositeLineOfSight
     {
         public LayerMask visibles = ~0;
 
@@ -54,7 +54,7 @@ namespace IA.LineOfSight
         /// <param name="origin">El origen de coordenadas para el cálculo de visión</param>
         /// <param name="range">La distancia máxima de la visión</param>
         /// <param name="angle">El ángulo máximo de visión</param>
-        public LineOfSight(Transform origin, float range, float angle)
+        public CompositeLineOfSight(Transform origin, float range, float angle)
         {
             this.origin = origin;
             this.range = range;
@@ -69,7 +69,7 @@ namespace IA.LineOfSight
         /// <param name="range">La distancia máxima de la visión</param>
         /// <param name="angle">El ángulo máximo de visión</param>
         /// <param name="v">Elementos visibles para esta entidad</param>
-        public LineOfSight(Transform origin, Transform target, float range, float angle, LayerMask v)
+        public CompositeLineOfSight(Transform origin, Transform target, float range, float angle, LayerMask v)
         {
             this.target = target;
             this.origin = origin;
