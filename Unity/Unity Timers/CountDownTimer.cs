@@ -67,7 +67,6 @@ namespace Utility.Timers
 			isReady = true;
 			Time = CoolDown;
 			OnTimesUp();
-			_mono.StopCoroutine(CountDown());
 		}
 		IEnumerator CountDown(float From = Time)
 		{
@@ -81,7 +80,6 @@ namespace Utility.Timers
 			isReady = true;
 			Time = CoolDown;
 			OnTimesUp();
-			_mono.StopCoroutine(CountDown(From));
 		}
 	}
 }

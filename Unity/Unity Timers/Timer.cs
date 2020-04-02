@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-
 namespace Utility.Timers
 {
 	public abstract class Timer
