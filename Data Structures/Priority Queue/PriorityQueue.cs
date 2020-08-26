@@ -22,7 +22,7 @@ public class PriorityQueue<T> : IPriorityQueue<T>, IEnumerable<T>
         }
     }
 
-    public bool IsEmpty { get { return _priorityQueue.Count == 0; } }
+    public bool IsEmpty => _priorityQueue.Count == 0;
 
     public void Enqueue(float priority, T data)
     {
