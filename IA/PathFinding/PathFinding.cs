@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace PathFinding.Generic
+namespace PathFinding
 {
-	public class PathFindMethod<T>
+	public class Method<T>
 	{
 		///<sumary>
 		/// Guarda los nodos que todavía se deben evaluar.
@@ -109,7 +109,7 @@ namespace PathFinding.Generic
 		/// Búsqueda de camino mediante Dejkstra.
 		/// </summary>
 		/// <param name="start">Nodo de inicio de la búsqueda.</param>
-		/// <param name="reference">Nodo a encontrar.</param>
+		/// <param name="TargetCheck">Nodo a encontrar.</param>
 		/// <param name="Path">Devuelve un camino posible al nodo objetivo.</param>
 		public static Ienumerable<T> Dijkstra<T>(T start, Func<T,bool> TargetCheck, Func<T, Ienumerable<Tuple<T,float>>> GetNeighbours)
 		{
@@ -251,16 +251,16 @@ namespace PathFinding.Generic
 		/// Retorna el recorrido óptimo generado por uno de los algoritmos de búsqueda de caminos.
 		///</Sumary>
 		///<param name= "reference">Último nodo de la cadena.</param>
-		private static Ienumerable<T> CorrectPath<T>(T reference)
+		private static IEnumerable<T> CorrectPath<T>(T reference)
 		{
 			T currentNodeParent = parents[reference];
 
 			if (currentNodeParent == parents[currentNodeParent])
-				return new Ienumerable<T>(){currentNodeParent};
+				return new Enumerable<T>(){currentNodeParent};
 			
-			return Ienumerable.Empty()
-								.Append(CorrectPath(currentNodeParent))
-								.Add(reference);
+			return Enumerable.Empty<T>()
+							 .Append(CorrectPath(currentNodeParent))
+							 .Add(reference);
 		}
 	}
 }

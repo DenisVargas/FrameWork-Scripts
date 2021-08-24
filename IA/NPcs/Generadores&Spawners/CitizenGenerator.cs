@@ -1,7 +1,8 @@
+using system;
+using system.generic;
+
 namespace CitizenGenerator
 {
-	using system;
-	using system.generic;
 	public class Ente
 	{
 		public string Nombre;

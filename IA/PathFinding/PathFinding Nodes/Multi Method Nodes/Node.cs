@@ -69,7 +69,6 @@ namespace PathFinding
 		{
 			return Vector3.Distance(node.transform.position, ObjectiveNode.transform.position);
 		}
-		
 	}
 }
 

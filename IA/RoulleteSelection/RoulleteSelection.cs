@@ -1,6 +1,6 @@
-Using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace IA.RandomSelections
+namespace IA.Utility
 {
     public static class RoulleteSelection
     {
