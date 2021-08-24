@@ -16,7 +16,6 @@ public class MultiplayerManager2 : MonoBehaviour {
 
     public static NetworkClient myClient;
 
-
     private void OnGUI()
     {
         if(!NetworkServer.active && !NetworkClient.active)

@@ -3,15 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-//[System.Serializable]
-//public class Data
-//{
-//    public int daño = 1;
-//    public float algoextra = 0f;
-//    public bool estoyLoco = false;
-//    public string name = "Gustabo";
-//}
-
 public class DragBehaviour : MonoBehaviour
 {
     public Vector2 dragLimits;
