@@ -1,0 +1,40 @@
+# Archivos y directorios generados por PyInstaller
+__pycache__/
+build/
+dist/
+
+# Archivos y directorios generados por el sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos y directorios generados por el entorno de desarrollo
+*.pyc
+*.pyo
+*.egg-info/
+*.egg/
+*.pyd
+*.so
+*.dll
+*.log
+*.bak
+*.swp
+*.pyc
+
+# Archivos y directorios que pueden ser específicos del sistema operativo
+*.exe
+*.msi
+*.pyw
+*.spec
+*.stackdump
+*.rpm
+*.deb
+*.gz
+*.tgz
+*.bz2
+*.zip
+*.tar
+*.iso
+*.bin
+*.dmg
+*.app
+*.apk

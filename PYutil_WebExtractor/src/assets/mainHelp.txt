@@ -1,0 +1,13 @@
+Bienvenido a la herramienta de simplificacion de links Markdown (md).
+Sintaxis:
+> Command ["Enlace"]
+
+Se asume que el enlace dado tiene este formato: [Enlace](Enlace).
+Ej: [http://www.instructables.com/](http://www.instructables.com/)
+
+Retorna el titulo simplificado.
+Ej: instructables.com
+
+Opciones:
+-h            - Despliega la ayuda.
+-h <comando>  - Despliega la ayuda para el comando determinado.
