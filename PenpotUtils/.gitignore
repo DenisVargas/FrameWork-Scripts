@@ -1,0 +1,6 @@
+# Archivos y directorios generados por PyInstaller
+__pycache__/
+
+# Directorios de utilidad
+*Inputs/**
+*Outputs/**
