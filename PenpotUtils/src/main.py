@@ -1,10 +1,10 @@
 import json
 from Colors import Color
 from TextFonts import Typography, Font_Family
-from InputHandler import LoadFile
+from InputHandler import LoadFileAsString
 
-typografy_rawData = LoadFile("../inputs/typographies.json")
-Color_rawData = LoadFile("../inputs/colors.json")
+typografy_rawData = LoadFileAsString("../inputs/typographies.json")
+Color_rawData = LoadFileAsString("../inputs/colors.json")
 
 def parse_typography(json_string):
     # Convertir de json a un objeto py
@@ -72,4 +72,4 @@ def save_file(path: str, content: str):
             f.write(content)
     except OSError:
         print(f"No se pudo guardar el archivo en la ruta especificada: {path}")
-save_file('../Outputs/results.css', output)
+save_file('../outputs/results.css', output)

@@ -2,5 +2,5 @@
 __pycache__/
 
 # Directorios de utilidad
-*Inputs/**
-*Outputs/**
+[iI]nputs/**
+[oO]utputs/**
